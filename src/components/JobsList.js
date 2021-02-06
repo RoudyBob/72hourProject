@@ -1,6 +1,6 @@
 import React from 'react';
 
-const JobsList = () => {
+const JobsList = (props) => {
     return ( 
         <>
         <p>Hello from JobsList!</p>
