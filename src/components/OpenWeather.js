@@ -1,6 +1,6 @@
 import React from 'react';
 
-const OpenWeather = () => {
+const OpenWeather = (props) => {
     return ( 
         <>
         <p>Hello from OpenWeather!</p>
