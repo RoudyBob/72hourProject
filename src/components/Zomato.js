@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Zomato = () => {
+const Zomato = (props) => {
     return ( 
         <>
         <p>Hello from Zomato!</p>
