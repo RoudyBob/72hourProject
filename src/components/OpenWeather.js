@@ -1,28 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Button } from 'reactstrap';
 
 const OpenWeather = (props) => {
 
-    const key = 'f8c31fa5e8ede3bd259010a4a6518ce6';
-    const baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
-    const longitude = props.longitude;
-    const latitude = props.latitude;
+    const [weather, setWeather] = useState('');
+    const apiKey = "69d1b6b1d0ad2eb70808d612c592235b";
 
-    const url = `${baseUrl}?lat=${latitude}&lon=${longitude}&appid=${key}`
 
-    console.log(`URL for Weather: ${url}`);
+    const fetcher = (e) => {
+        e.preventDefault();
 
-    // const fetchWeather = () => {
-    //     fetch(url) = ()
-    //     .then((response) => response.json())
-    //     .then((data) => console.log(data))
-    //     .err((err) => console.log(err))
-    // }
+          fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${props.latitude}&lon=${props.longitude}&appid=${apiKey}&units=imperial`)
+           .then(res => res.json())
+           .then(json => {
+            console.log(json)
+            setWeather(json);
+           })
+         }
 
     return ( 
-        <>
-        <p>Hello from OpenWeather!</p>
-        {/* <button onClick={fetchWeather}>Click for Weather</button> */}
-        </>
+        <div>
+            {weather.main ? <p>The weather in {weather.name} is <b>{weather.main.temp}° F</b> with {weather.weather[0].description}.</p> : <><br /><br /></>}
+            {weather.main ? <p><i>High:</i> <b>{weather.main.temp_max}° F</b></p> : <><br /><br /></>}
+            {weather.main ? <p><i>Low:</i> <b>{weather.main.temp_min}° F</b></p> : <><br /><br /></>}
+        <Button outline color="warning" onClick={fetcher}>Fahrenheit</Button>
+        </div>
      );
 }
  
