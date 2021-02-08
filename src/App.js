@@ -59,19 +59,7 @@ function App() {
           <CardText><JobsList longitude={longitude} latitude={latitude}/></CardText>
         </CardBody>
       </Card>
-      <Card body inverse sm="8"
-      style={{
-        margin: "30px",
-        width: "300px",
-        backgroundColor: "darkgoldenrod"
-      }}>
-        <CardImg top width="100%" src="https://picsum.photos/300/200" alt="Card image cap" />
-        <CardBody>
-          <CardTitle tag="h5">Bob</CardTitle>
-          <CardSubtitle tag="h6" className="mb-2"><i>Bob's app will go here!</i></CardSubtitle>
-          <CardText><Nasa longitude={longitude} latitude={latitude}/></CardText>
-        </CardBody>
-      </Card>
+      <Nasa longitude={longitude} latitude={latitude}/>
       <Card body inverse sm="8"
       style={{
         margin: "30px",

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Card, CardImg, CardBody, CardTitle, CardSubtitle, CardText} from 'reactstrap';
 
 const Nasa = (props) => {
 
@@ -13,15 +14,24 @@ const Nasa = (props) => {
     // Output URL to Console Log
     console.log(`URL for API query: ${url}`)
 
-    return ( 
-        <>
-        <p>Hello from NASA!</p>
-        {latitude ? <span>{`Latitude is: ${props.latitude}`}</span> : <span>{`Latidude is: Locating...`}</span>}
+    return (
+        <Card body inverse sm="8" style={{
+            margin: "30px",
+            width: "300px",
+            backgroundColor: "darkgoldenrod"
+        }}>
+        {longitude ? <CardImg top width="100%" src={url} alt="Satellite Image of Location" /> : <CardImg top width="100%" src="./assets/satelliteimage.jpeg" alt="Placeholder Image of Satellite" />}
+        <CardBody>
+          <CardTitle tag="h5">NASA Satellite View</CardTitle>
+          <CardSubtitle tag="h6" className="mb-2">Your Current Location</CardSubtitle>
+          <CardText>
+          {latitude ? <span>{`Latitude: ${latitude}`}</span> : <span>{`Latitude: Locating...`}</span>}
         <br />
-        {longitude ? <span>{`Longitude is: ${props.longitude}`}</span>: <span>{`Longitude is: Locating...`}</span>}
+        {longitude ? <span>{`Longitude: ${longitude}`}</span>: <span>{`Longitude: Locating...`}</span>}
         <br />
-        {longitude ? <img src={url} width="300" /> : <></>}
-        </>
+          </CardText>
+        </CardBody>
+      </Card>
      );
 }
  
