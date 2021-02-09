@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/node_modules-old
 /.pnp
 .pnp.js
 
@@ -21,3 +22,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.env
+
+src/components/JobsList_copy.js
+src/components/temp.js
