@@ -25,3 +25,5 @@ yarn-error.log*
 
 .env
 
+src/components/JobsList_copy.js
+src/components/temp.js
