@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
-
-// const baseUrl = 'https://jobs.github.com/positions.json?lat=37.3229978&long=-122.0321823';
+import {
+    Card, Button, CardImg, CardTitle, CardText, CardDeck,
+    CardSubtitle, CardBody, Row
+  } from 'reactstrap';
 
  const JobsList = (props) => {
      const [jobs, setJobs] = useState([]);
@@ -32,11 +34,24 @@ import React, {useState, useEffect} from 'react';
 
     return ( 
         <>
+        <Card body inverse sm="8"
+      style={{
+        margin: "30px",
+        width: "300px",
+        backgroundColor: "darkred"
+      }}>
+        <CardImg top width="100%" src="https://github.githubassets.com/images/modules/logos_page/Octocat.png" alt="Card image cap" />
+        <CardBody>
+          <CardTitle tag="h5">GitHub Jobs APP</CardTitle>
+          <CardSubtitle tag="h6" className="mb-2"><i>Find Up to {numberOfJobs} Job Listings Closest to You</i></CardSubtitle>
+          <CardText></CardText>
+        
+      
         <form onSubmit={(e) => handleSubmit(e)}>
-            <p style={{textAlign: 'center'}}>GitHub Jobs API</p>
-            <p style={{textAlign: 'center'}}>Find Up to {numberOfJobs} Job Listings Closest to You<br/>
-                <button onClick={fetchJobs}>Click Here</button>
+            <p style={{textAlign: 'center'}}>
+                <Button outline color="warning" onClick={fetchJobs}>Click Here</Button>
             </p>
+            <div style={{background: 'white', height: 5 + 'px', marginBottom: 10 + 'px'}}></div>
             {jobs.map(result => {
                 if (count < numberOfJobs){
                     count++
@@ -59,9 +74,12 @@ import React, {useState, useEffect} from 'react';
             })}
             
         </form>
+        </CardBody>
+        </Card>
         </>
     )  
 }
 
  
 export default JobsList; 
+

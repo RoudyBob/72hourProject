@@ -46,19 +46,7 @@ function App() {
         justifyContent: "center",
         alignItems: "center"
       }}>
-      <Card body inverse sm="8"
-      style={{
-        margin: "30px",
-        width: "300px",
-        backgroundColor: "darkred"
-      }}>
-        <CardImg top width="100%" src="https://picsum.photos/300/200" alt="Card image cap" />
-        <CardBody>
-          <CardTitle tag="h5">Susan</CardTitle>
-          <CardSubtitle tag="h6" className="mb-2"><i>Susan's app will go here!</i></CardSubtitle>
-          <CardText><JobsList longitude={longitude} latitude={latitude}/></CardText>
-        </CardBody>
-      </Card>
+      <JobsList longitude={longitude} latitude={latitude}/>
       <Card body inverse sm="8"
       style={{
         margin: "30px",
