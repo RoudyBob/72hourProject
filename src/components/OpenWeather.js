@@ -1,31 +1,84 @@
-import React, { useState } from 'react';
-import { Button } from 'reactstrap';
+import React, { useState, useEffect } from "react";
+import ForecastDisplay from "./weatherDisplay";
+import {
+  Card, Button, CardImg, CardTitle, CardText, CardDeck,
+  CardSubtitle, CardBody, Row
+} from 'reactstrap';
 
 const OpenWeather = (props) => {
+  const [forecast, setForecast] = useState("");
+  const [fahrenheit, setFahrenheit] = useState('');
+  const [celsius, setCelsius] = useState("");
+  const [showFahrenheit, setShowFahrenheit] = useState (true);
+  const apiKey = "69d1b6b1d0ad2eb70808d612c592235b";
 
-    const [weather, setWeather] = useState('');
-    const apiKey = "69d1b6b1d0ad2eb70808d612c592235b";
+
+  useEffect(() => {
+    fetcher();
+    fetcherTwo();
+  }, []);
+
+  const fetcher = () => {
+    console.log("Hello");
+    console.log("Testing");
+    console.log("Testing 4");
+
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${props.latitude}&lon=${props.longitude}&appid=${apiKey}&units=imperial`
+    )
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        setForecast(json);
+        setFahrenheit(json);
+        // if(json.main !== undefined) {
+        //celsius = (5 / 9) * (json.main.temp - 32);
+        //celsiusMax = (5 / 9) * (json.main.temp_max - 32);
+        //celsiusMin = (5 / 9) * (json.main.temp_min - 32);
+      });
+  };
 
 
-    const fetcher = (e) => {
-        e.preventDefault();
+  const fetcherTwo = () => {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${props.latitude}&lon=${props.longitude}&appid=${apiKey}&units=metric`
+    )
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        setCelsius(json);
+        // if(json.main !== undefined) {
+          //celsius = (5 / 9) * (json.main.temp - 32);
+          //celsiusMax = (5 / 9) * (json.main.temp_max - 32);
+          //celsiusMin = (5 / 9) * (json.main.temp_min - 32);
+        // }
+      });
+  };
 
-          fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${props.latitude}&lon=${props.longitude}&appid=${apiKey}&units=imperial`)
-           .then(res => res.json())
-           .then(json => {
-            console.log(json)
-            setWeather(json);
-           })
-         }
+  function handleToggle () {
+            setShowFahrenheit(!showFahrenheit)
+            showFahrenheit ? setForecast (fahrenheit) : setForecast (celsius)
+        }
 
-    return ( 
-        <div>
-            {weather.main ? <p>The weather in {weather.name} is <b>{weather.main.temp}° F</b> with {weather.weather[0].description}.</p> : <><br /><br /></>}
-            {weather.main ? <p><i>High:</i> <b>{weather.main.temp_max}° F</b></p> : <><br /><br /></>}
-            {weather.main ? <p><i>Low:</i> <b>{weather.main.temp_min}° F</b></p> : <><br /><br /></>}
-        <Button outline color="warning" onClick={fetcher}>Fahrenheit</Button>
-        </div>
-     );
-}
- 
+  return (
+    <div>
+      <Card body inverse sm="8"
+      style={{
+        margin: "30px",
+        width: "300px",
+        backgroundColor: "darkred"
+      }}>
+        <CardImg top width="auto" height="100%" src="https://coalregioncanary.com/wp-content/uploads/2020/08/summer.gif" alt="Card image cap" />
+        <CardBody>
+          <CardTitle tag="h5">Check your weather!</CardTitle>
+          <CardText><ForecastDisplay  showFahrenheit = {showFahrenheit} forecast = {forecast}/>
+          <Button outline color="warning" onClick={handleToggle}>
+        { !showFahrenheit ? "Click for Celsius" : "Click for Fahrenheit" }
+      </Button></CardText>
+        </CardBody>
+      </Card>
+    </div>
+  );
+};
+
 export default OpenWeather;
