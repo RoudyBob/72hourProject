@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-
+import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import JobsList from './components/JobsList';
@@ -23,12 +22,22 @@ function App() {
   const [longitude, setLongitude] = useState('');
 
   //location function here
-  function findMe() {
+  /*function findMe() {
     navigator.geolocation.getCurrentPosition(function(position) {
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
     })
-  };
+  };*/
+
+  useEffect(async () => {
+    try {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);})
+    } catch (error) {
+        console.log(error);
+    }
+  }, []);
 
   return (
     <div className="main"
@@ -38,7 +47,6 @@ function App() {
       alignItems: "center"
     }}>
             <div className="mainDiv">
-            {findMe()}
             <TeamHeader />
           <Row
       style={{
@@ -72,18 +80,7 @@ function App() {
           <CardText><Nasa longitude={longitude} latitude={latitude}/></CardText>
         </CardBody>
       </Card>
-      <Card body inverse sm="8"
-      style={{
-        margin: "30px",
-        width: "300px",
-        backgroundColor: "darkred"
-      }}>
-        <CardImg top width="auto" height="100%" src="https://coalregioncanary.com/wp-content/uploads/2020/08/summer.gif" alt="Card image cap" />
-        <CardBody>
-          <CardTitle tag="h5">Check your weather!</CardTitle>
-          <CardText><OpenWeather longitude={longitude} latitude={latitude}/></CardText>
-        </CardBody>
-      </Card>
+      { longitude ? <OpenWeather longitude={longitude} latitude={latitude}/> : <></>}
       <Card body inverse sm="8"
       style={{
         margin: "30px",

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "reactstrap";
 import ForecastDisplay from "./weatherDisplay";
+import {
+  Card, Button, CardImg, CardTitle, CardText, CardDeck,
+  CardSubtitle, CardBody, Row
+} from 'reactstrap';
 
 const OpenWeather = (props) => {
   const [forecast, setForecast] = useState("");
   const [fahrenheit, setFahrenheit] = useState('');
   const [celsius, setCelsius] = useState("");
-  const [currentDisplay, setCurrentDisplay] = useState("");
   const [showFahrenheit, setShowFahrenheit] = useState (true);
   const apiKey = "69d1b6b1d0ad2eb70808d612c592235b";
 
@@ -18,6 +20,8 @@ const OpenWeather = (props) => {
 
   const fetcher = () => {
     console.log("Hello");
+    console.log("Testing");
+    console.log("Testing 4");
 
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${props.latitude}&lon=${props.longitude}&appid=${apiKey}&units=imperial`
@@ -58,10 +62,21 @@ const OpenWeather = (props) => {
 
   return (
     <div>
-      <ForecastDisplay  showFahrenheit = {showFahrenheit} forecast = {forecast}/>
-      <Button outline color="warning" onClick={handleToggle}>
+      <Card body inverse sm="8"
+      style={{
+        margin: "30px",
+        width: "300px",
+        backgroundColor: "darkred"
+      }}>
+        <CardImg top width="auto" height="100%" src="https://coalregioncanary.com/wp-content/uploads/2020/08/summer.gif" alt="Card image cap" />
+        <CardBody>
+          <CardTitle tag="h5">Check your weather!</CardTitle>
+          <CardText><ForecastDisplay  showFahrenheit = {showFahrenheit} forecast = {forecast}/>
+          <Button outline color="warning" onClick={handleToggle}>
         { !showFahrenheit ? "Click for Celsius" : "Click for Fahrenheit" }
-      </Button>
+      </Button></CardText>
+        </CardBody>
+      </Card>
     </div>
   );
 };
