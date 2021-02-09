@@ -21,14 +21,13 @@ function App() {
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
 
-  //location function here
-  /*function findMe() {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      setLatitude(position.coords.latitude);
-      setLongitude(position.coords.longitude);
-    })
-  };*/
+  var divStyle = {
+    "display": "flex",
+    "justifyContent": "center",
+    "alignItems": "center"
+  };
 
+  // UseEffect async to get location
   useEffect(async () => {
     try {
       navigator.geolocation.getCurrentPosition(function(position) {
@@ -40,60 +39,14 @@ function App() {
   }, []);
 
   return (
-    <div className="main"
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center"
-    }}>
-            <div className="mainDiv">
-            <TeamHeader />
-          <Row
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center"
-      }}>
-      <Card body inverse sm="8"
-      style={{
-        margin: "30px",
-        width: "300px",
-        backgroundColor: "darkred"
-      }}>
-        <CardImg top width="100%" src="https://picsum.photos/300/200" alt="Card image cap" />
-        <CardBody>
-          <CardTitle tag="h5">Susan</CardTitle>
-          <CardSubtitle tag="h6" className="mb-2"><i>Susan's app will go here!</i></CardSubtitle>
-          <CardText><JobsList longitude={longitude} latitude={latitude}/></CardText>
-        </CardBody>
-      </Card>
-      <Card body inverse sm="8"
-      style={{
-        margin: "30px",
-        width: "300px",
-        backgroundColor: "darkgoldenrod"
-      }}>
-        <CardImg top width="100%" src="https://picsum.photos/300/200" alt="Card image cap" />
-        <CardBody>
-          <CardTitle tag="h5">Bob</CardTitle>
-          <CardSubtitle tag="h6" className="mb-2"><i>Bob's app will go here!</i></CardSubtitle>
-          <CardText><Nasa longitude={longitude} latitude={latitude}/></CardText>
-        </CardBody>
-      </Card>
-      { longitude ? <OpenWeather longitude={longitude} latitude={latitude}/> : <></>}
-      <Card body inverse sm="8"
-      style={{
-        margin: "30px",
-        width: "300px",
-        backgroundColor: "darkgoldenrod"
-      }}>
-        <CardImg top width="100%" src="https://picsum.photos/300/200" alt="Card image cap" />
-        <CardBody>
-          <CardTitle tag="h5">Mari</CardTitle>
-          <CardSubtitle tag="h6" className="mb-2"><i>Mari's app will go here!</i></CardSubtitle>
-          <CardText><Zomato longitude={longitude} latitude={latitude}/></CardText>
-        </CardBody>
-      </Card>
+    <div className="main" style={divStyle}>
+      <div className="mainDiv">
+      <TeamHeader />
+      <Row style={divStyle}>
+        { longitude ? <JobsList longitude={longitude} latitude={latitude}/> : <></> }
+        { longitude ? <Nasa longitude={longitude} latitude={latitude}/> : <></> }
+        { longitude ? <OpenWeather longitude={longitude} latitude={latitude}/> : <></> }
+        { longitude ? <Zomato longitude={longitude} latitude={latitude}/> : <></> }
       </Row>
     </div>
     </div>
