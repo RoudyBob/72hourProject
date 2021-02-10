@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ForecastDisplay from "./weatherDisplay";
+import ForecastDisplay from "./WeatherDisplay";
 import {
   Card, Button, CardImg, CardTitle, CardText, CardDeck,
   CardSubtitle, CardBody, Row
