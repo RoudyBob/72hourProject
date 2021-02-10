@@ -9,9 +9,11 @@ const Nasa = (props) => {
     const baseUrl = 'https://efa-cors-anywhere.herokuapp.com/https://api.nasa.gov/planetary/earth/assets';
     const longitude = Math.round(props.longitude * 100) / 100;
     const latitude = Math.round(props.latitude * 100) / 100
-    const date = "2020-11-28";
+    //let [month, date, year] = new Date().toLocaleDateString("en-US").split("/")
+    //const searchDate = `${year}-${month}-${date}`;
+    const searchDate = "2020-11-28";
     const dim = .10;
-    const url = `${baseUrl}?lon=${longitude}&lat=${latitude}&date=${date}&dim=${dim}&api_key=${key}`;
+    const url = `${baseUrl}?lon=${longitude}&lat=${latitude}&date=${searchDate}&dim=${dim}&api_key=${key}`;
     
     var cardStyle = {
       "margin": "30px",
@@ -20,10 +22,12 @@ const Nasa = (props) => {
     };
 
     const fetchImg = () => {
-      //console.log(url);
       fetch(url)
       .then((res) => res.json())
-      .then((json) => setImgUrl(json.url))
+      .then((json) => {
+        //console.log(json)
+        setImgUrl(json.url)
+      })
       .catch((err) => console.log(err))
     };
 
@@ -33,7 +37,7 @@ const Nasa = (props) => {
 
     return (
         <Card body inverse sm="8" style={cardStyle}>
-        {longitude ? <CardImg top width="100%" src={imgUrl} alt="Satellite Image of Location" /> : <CardImg top width="100%" src="./assets/satelliteimage.jpeg" alt="Placeholder Image of Satellite" />}
+        {imgUrl ? <CardImg top width="100%" src={imgUrl} alt="Satellite Image of Location" /> : <CardImg top width="100%" src="./assets/satelliteimage.jpeg" alt="Placeholder Image of Satellite" />}
         <CardBody>
           <CardTitle tag="h5">NASA Satellite View</CardTitle>
           <CardSubtitle tag="h6" className="mb-2">Your Current Location</CardSubtitle>
